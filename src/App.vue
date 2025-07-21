@@ -1,30 +1,18 @@
 <template>
-  <div class="container">
+  <div id="app">
     <Home />
   </div>
 </template>
 
 <script setup>
-import Home from './views/Home.vue'
+import Home from './Home.vue'
 </script>
 
 <style scoped>
-html, body {
-  margin: 0;
-  padding: 0;
-  font-size: 16px;
-  font-family: 'Helvetica Neue', sans-serif;
-  background-color: #fffaf4;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-.container {
-  max-width: 420px;
+#app {
+  max-width: 450px;
   margin: 0 auto;
-  padding: 1.5rem 1rem;
+  background: linear-gradient(#fff9f3, #ffe4e1);
 }
 
 </style>
