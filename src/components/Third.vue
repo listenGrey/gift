@@ -1,10 +1,11 @@
 <template>
-  <div class="typewriter">
-    <p v-html="displayText"></p>
+  <div class="third">
+    <p v-html="displayText" style="margin-bottom: 30px"></p>
     <transition name="slide">
-      <p v-if="showFinal" class="final-line">
-        These are not just words. This is how I see you.
-      </p>
+      <img
+          v-if="showFinal" class="pics"
+          src="/her.jpg"
+      />
     </transition>
   </div>
 </template>
@@ -43,21 +44,18 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.typewriter {
+.third {
   white-space: pre-wrap;
   font-family: 'Courier Prime', monospace;
   font-size: 1.1rem;
   color: #444;
   line-height: 1.7;
-  text-align: center;
 }
 
-.final-line {
-  margin-top: 1.5rem;
-  font-style: italic;
-  font-size: 0.95rem;
-  color: #999;
+.pics {
   animation: fadeInSlow 5s ease forwards;
+  width: 100%;
+  height: 50%;
 }
 
 .slide-enter-active, .slide-leave-active {

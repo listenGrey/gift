@@ -8,13 +8,7 @@
       </div>
     </transition>
 
-    <transition name="fade">
-      <div v-if="step === 2">
-        <Typewriter :text="birthdayText" />
-      </div>
-    </transition>
-
-    <transition name="fade">
+    <!--<transition name="fade">
       <div v-if="step === 3">
         <PhotoShow :photoUrl="photoUrl" />
         <DollImage :dollUrl="dollUrl" />
@@ -40,6 +34,34 @@
         </div>
         <FooterQuote />
       </div>
+    </transition>-->
+
+    <transition name="fade">
+      <div v-if="step === 2">
+        <FallingPetals />
+        <Second :text="secondText"  />
+      </div>
+    </transition>
+
+    <transition name="fade">
+      <div v-if="step === 3">
+        <FallingPetals />
+        <Third :text="thirdText"  />
+      </div>
+    </transition>
+
+    <transition name="fade">
+      <div v-if="step === 4">
+        <FallingPetals />
+        <Four :text="fourText" />
+      </div>
+    </transition>
+
+    <transition name="fade">
+      <div v-if="step === 5">
+        <FallingPetals />
+        <Five :text="fiveText" />
+      </div>
     </transition>
   </div>
 </template>
@@ -47,14 +69,46 @@
 <script setup>
 import {onMounted, ref} from 'vue'
 import Welcome from './components/Welcome.vue'
+import FallingPetals from './components/FallingPetals.vue'
+import Second from './components/Second.vue'
+import Third from './components/Third.vue'
+import Four from './components/Four.vue'
+import Five from "./components/Five.vue";
+
 import Typewriter from './components/Typewriter.vue'
 import PhotoShow from './components/PhotoShow.vue'
 import DollImage from './components/DollImage.vue'
 import FooterQuote from './components/FooterQuote.vue'
 
+const secondText = `That day, I went to Coral Island.
+I first saw you at the pier.
+I was lucky—so lucky.\n
+In the middle of Phuket’s rainy season,
+I witnessed the clearest sea......
+and the brightest smile—yours.`
+const thirdText = `That day felt like the happiest day of my journey.
+I took a photo of you,a moment of you and the ocean,so I could keep it forever.\n
+When we said goodbye,
+it felt like waking from a beautiful dream.
+And I… I didn’t want to open my eyes.`
+const fourText = `You once asked me,
+“Do you like dolls?”
+
+I smiled...
+because I already had an answer.
+
+If you were a doll—
+I'd never put you in a box.
+I'd hold you gently,
+and never let you go.
+
+Because you...
+you are the kind I'd cherish forever.`
+const fiveText = `Tap to open your gift`
+
 const birthdayText = `Dear Pan,\n\nYou once asked me if I liked dolls.\nMaybe this is my answer.\n\nHappy birthday, soft girl 🌸`
-const photoUrl = '/src/assets/her.jpg'
-const dollUrl = '/src/assets/doll.png'
+const photoUrl = '/her.jpg'
+const dollUrl = '/doll.png'
 
 const step = ref(1)
 const openGift = ref(false)
@@ -65,7 +119,7 @@ onMounted(() => {
 })
 
 function advance() {
-  if (step.value < 5 && !openGift.value) {
+  if (step.value < 6 && !openGift.value) {
     step.value++
   }
 }
@@ -102,7 +156,7 @@ function advance() {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 1s ease;
+  transition: opacity 0s ease;
 }
 .fade-enter-from, .fade-leave-to {
   opacity: 0;
