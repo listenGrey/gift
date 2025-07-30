@@ -4,7 +4,7 @@
     <transition name="slide">
       <img
           v-if="showFinal" class="pics"
-          src="/her.jpg"
+          src="/hdpics/DSC_0298.jpg"
       />
     </transition>
   </div>
@@ -38,7 +38,7 @@ async function startTyping() {
 onMounted(async () => {
   await delay(500)
   visible.value = true
-  await delay(2000)
+  await delay(1000)
   await startTyping()
 })
 </script>
@@ -47,9 +47,9 @@ onMounted(async () => {
 .second {
   white-space: pre-wrap;
   font-family: 'Courier Prime', monospace;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #444;
-  line-height: 1.7;
+  line-height: 1.5;
 }
 
 .pics {

@@ -1,6 +1,6 @@
 <template>
   <div class="four">
-    <p v-html="displayText"></p>
+    <p v-html="displayText" style="margin-bottom: 20px"></p>
     <transition name="slide">
       <img
           v-if="showFinal" class="pics"
@@ -38,7 +38,7 @@ async function startTyping() {
 onMounted(async () => {
   await delay(500)
   visible.value = true
-  await delay(2000)
+  await delay(1000)
   await startTyping()
 })
 </script>
@@ -47,9 +47,9 @@ onMounted(async () => {
 .four {
   white-space: pre-wrap;
   font-family: 'Courier Prime', monospace;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #444;
-  line-height: 1.7;
+  line-height: 1.5;
 }
 
 .pics {

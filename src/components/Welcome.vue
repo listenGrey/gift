@@ -3,9 +3,11 @@
     <canvas id="confetti-canvas" class="confetti-layer"></canvas>
     <h1>Happy Birthday, Pan🎉</h1>
     <img src="/cake.gif" alt="birthday cake" class="cake" />
-    <transition name="slide">
-      <p v-if="showHint" class="hint">honey, press to continue ❤️</p>
-    </transition>
+    <div class="tips">
+      <transition name="slide">
+        <p v-if="showHint" class="hint">honey, press to continue ❤️</p>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -39,6 +41,14 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 93vh;
+}
+
 .confetti-layer {
   position: absolute;
   top: 0;
@@ -60,14 +70,16 @@ onMounted(() => {
 
 .cake {
   width: 100%;
-  margin-top: 1rem;
 }
 
-.hint {
-  margin-top: 5rem;
+.tips {
   font-size: 1.5rem;
   color: #888;
   text-align: center;
+  height: 10vh;
+}
+
+.hint {
   animation: fadeInSlow 25s ease forwards;
 }
 

@@ -1,129 +1,146 @@
 <template>
   <div class="container" @click="advance">
-    <audio ref="audioRef" src="/music.mp3" autoplay loop hidden></audio>
+    <audio ref="bgm" src="/bgm.mp3" autoplay loop preload="auto" style="display: none"/>
 
     <transition name="fade">
-      <div v-if="step === 1">
+      <div class="sound-prompt" v-if="step === 1">
+        <div class="dialog">
+          <p>For the best experience,<br />please turn on your sound🎶</p>
+          <button>OK</button>
+        </div>
+      </div>
+    </transition>
+
+    <transition name="fade">
+      <div v-if="step === 2">
         <Welcome />
       </div>
     </transition>
 
-    <!--<transition name="fade">
+    <transition name="fade">
       <div v-if="step === 3">
-        <PhotoShow :photoUrl="photoUrl" />
-        <DollImage :dollUrl="dollUrl" />
-      </div>
-    </transition>
-
-    <transition name="fade">
-      <div v-if="step === 4" class="center">
-        <button @click.stop="openGift = true; step++" class="open-button">
-          Tap to open your gift 🎁
-        </button>
-      </div>
-    </transition>
-
-    <transition name="fade">
-      <div v-if="step === 5">
-        <div class="card">
-          <p>
-            This little world was made just for you.<br /><br />
-            May it bring you the smile you deserve on your birthday.<br /><br />
-            — from the guy who wishes he could give you this in person 🇬🇧
-          </p>
-        </div>
-        <FooterQuote />
-      </div>
-    </transition>-->
-
-    <transition name="fade">
-      <div v-if="step === 2">
         <FallingPetals />
         <Second :text="secondText"  />
       </div>
     </transition>
 
     <transition name="fade">
-      <div v-if="step === 3">
+      <div v-if="step === 4">
         <FallingPetals />
         <Third :text="thirdText"  />
       </div>
     </transition>
 
     <transition name="fade">
-      <div v-if="step === 4">
+      <div v-if="step === 5">
         <FallingPetals />
         <Four :text="fourText" />
       </div>
     </transition>
 
     <transition name="fade">
-      <div v-if="step === 5">
+      <div v-if="step === 6">
         <FallingPetals />
-        <Five :text="fiveText" />
+        <Seven :text="sevenText" />
+      </div>
+    </transition>
+
+    <transition name="fade">
+      <div v-if="step === 7">
+        <FallingPetals />
+        <Five />
+      </div>
+    </transition>
+
+    <transition name="fade">
+      <div v-if="step === 8">
+        <FallingPetals />
+        <Six />
+      </div>
+    </transition>
+
+    <transition name="fade">
+      <div v-if="step === 9">
+        <Eight />
       </div>
     </transition>
   </div>
 </template>
 
 <script setup>
-import {onMounted, ref} from 'vue'
+import { onMounted, ref } from 'vue'
 import Welcome from './components/Welcome.vue'
 import FallingPetals from './components/FallingPetals.vue'
 import Second from './components/Second.vue'
 import Third from './components/Third.vue'
 import Four from './components/Four.vue'
-import Five from "./components/Five.vue";
-
-import Typewriter from './components/Typewriter.vue'
-import PhotoShow from './components/PhotoShow.vue'
-import DollImage from './components/DollImage.vue'
-import FooterQuote from './components/FooterQuote.vue'
+import Five from './components/Five.vue'
+import Six from './components/Six.vue'
+import Seven from "./components/Seven.vue";
+import Eight from './components/Eight.vue'
 
 const secondText = `That day, I went to Coral Island.
-I first saw you at the pier.
-I was lucky—so lucky.\n
-In the middle of Phuket’s rainy season,
-I witnessed the clearest sea......
+I first saw you at the pier—under a gray sky, with the sea behind you.
+And just like that, I got lucky.\n
+In the heart of Phuket's rainy season,
+I saw the clearest ocean...
 and the brightest smile—yours.`
-const thirdText = `That day felt like the happiest day of my journey.
-I took a photo of you,a moment of you and the ocean,so I could keep it forever.\n
-When we said goodbye,
-it felt like waking from a beautiful dream.
-And I… I didn’t want to open my eyes.`
+
+const thirdText = `That moment felt like the warmest part of my entire journey.
+I took a photo of you—of you and the sea—
+because some moments deserve to be held forever.\n
+When we parted ways,
+it felt like waking up from the most gentle dream.
+And I... I didn't want to open my eyes.`
+
 const fourText = `You once asked me,
 “Do you like dolls?”
 
 I smiled...
-because I already had an answer.
+because the answer was already there, in front of me.
 
 If you were a doll—
-I'd never put you in a box.
+I wouldn't place you on a shelf,
+or keep you behind glass.
+
 I'd hold you gently,
-and never let you go.
+laugh with you,
+carry you everywhere my heart goes.
 
 Because you...
-you are the kind I'd cherish forever.`
-const fiveText = `Tap to open your gift`
+you're the kind I'd never let go.`
 
-const birthdayText = `Dear Pan,\n\nYou once asked me if I liked dolls.\nMaybe this is my answer.\n\nHappy birthday, soft girl 🌸`
-const photoUrl = '/her.jpg'
-const dollUrl = '/doll.png'
+const sevenText = `I heard you fell into the water,
+and haven't been feeling well since...
+My heart sank when I found out.
+
+If I could, I'd be by your side—
+wrapping you in the warmest towel,
+bringing you tea,
+whispering silly things just to make you smile.
+
+Please take care of yourself, Pan.
+You are too precious to be unwell.
+
+Sending you healing thoughts from afar 🌸`
 
 const step = ref(1)
-const openGift = ref(false)
-const audioRef = ref(null)
 
 onMounted(() => {
-  audioRef.value?.play().catch(() => {})
+  const audio = document.querySelector('audio')
+
+  const resumeAudio = () => {
+    audio?.play().catch(() => {})
+    document.removeEventListener('click', resumeAudio)
+  }
+  document.addEventListener('click', resumeAudio)
 })
 
 function advance() {
-  if (step.value < 6 && !openGift.value) {
+  if (step.value < 9 ) {
     step.value++
   }
 }
-
 </script>
 
 <style scoped>
@@ -135,49 +152,41 @@ function advance() {
   min-height: 100vh;
 }
 
-.center {
-  text-align: center;
-}
-
-.open-button, .save-button {
-  background-color: #ffb6b9;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  font-size: 1rem;
-  color: #fff;
-  cursor: pointer;
-  margin-top: 2rem;
-  transition: background-color 0.3s ease;
-}
-
-.open-button:hover, .save-button:hover {
-  background-color: #ff9ea2;
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0s ease;
-}
-.fade-enter-from, .fade-leave-to {
-  opacity: 0;
-}
-
-.card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-top: 1.5rem;
-  font-family: 'Georgia', serif;
-  font-size: 1rem;
-  line-height: 1.6;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  max-width: 360px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+.sound-prompt {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.dialog {
+  background: white;
+  padding: 24px 32px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.dialog p {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.dialog button {
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
 }
 </style>
